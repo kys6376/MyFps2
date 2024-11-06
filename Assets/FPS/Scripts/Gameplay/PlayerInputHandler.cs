@@ -22,14 +22,14 @@ namespace Unity.FPS.Gameplay
 
 
         void Start()
-        {   
+        {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
 
         void LateUpdate()
         {
-            
+
         }
 
         public bool CanProcessInput()
@@ -106,7 +106,7 @@ namespace Unity.FPS.Gameplay
         }
 
         public bool GetCrouchInputDown()
-        {            
+        {
             /*if (CanProcessInput())
             {
                 return Input.GetButtonDown(GameConstants.k_ButtonNameCrouch);
@@ -135,6 +135,41 @@ namespace Unity.FPS.Gameplay
             return false;
         }
 
-        
+        //무기 교체
+        public int GetSwitchWeaponInput()
+        {
+            if (CanProcessInput())
+            {
+                if (Input.GetAxis(GameConstants.k_AxisNameNextWeapon) > 0f)
+                {
+                    return 1;
+                }
+                else if (Input.GetAxis(GameConstants.k_AxisNameNextWeapon) < 0f)
+                {
+                    return -1;
+                }
+                else if (Input.GetAxis(GameConstants.k_MouseAxisNameScrollWheel) > 0f)
+                {
+                    return -1;
+                }
+                else if (Input.GetAxis(GameConstants.k_MouseAxisNameScrollWheel) < 0f)
+                {
+                    return 1;
+                }
+            }
+
+            return 0;
+        }
+
+        //조준 - 마우스 우클릭하는 동안 
+        public bool GetAimInputHeld()
+        {
+            if (CanProcessInput())
+            {
+                return Input.GetButton(GameConstants.k_ButtonNameAim);
+            }
+
+             return false;
+        }
     }
 }
