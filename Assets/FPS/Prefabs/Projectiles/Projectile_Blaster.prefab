@@ -45,6 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22dd1f86984fd3e45870cebe3df4ef87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 300
+  gravityDown: 0
+  root: {fileID: 3659995153115176982}
+  tip: {fileID: 1135791333161367127}
+  hittableLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  impackVfxPrefab: {fileID: 7655095426451682942, guid: a7d68b1a502e02a49b8efb1b86a8c931,
+    type: 3}
+  impactVfxLifeTime: 5
+  impactSfxClip: {fileID: 8300000, guid: e75443ac2e1e2124b82d88dcfbbd7bfb, type: 3}
 --- !u!1 &5564024855854763701
 GameObject:
   m_ObjectHideFlags: 0

@@ -68,10 +68,15 @@ namespace Unity.FPS.Game
         //Projectile
         public ProjectileBase projectilePrefab;
 
-        public Vector3 MuzzleWorldVelocity { get; private set; }
+        public Vector3 MuzzleWorldVelocity { get; private set; }             //현재 프레임
         private Vector3 lastMuzzlePosition;
         public float CurrentCharge { get; private set; }
+
+        [SerializeField] private int bulletsPerShot = 1;                     //한번 슛하는데 발사되는 탄환의 갯수
+        [SerializeField] private float bulletSpreadAngle = 0f;               //뷸렛이 퍼져 나가는 각도
         #endregion
+
+        public float CurrentAmmoRatio => currentAmmo / maxAmmo;
 
         private void Awake()
         {
@@ -84,6 +89,17 @@ namespace Unity.FPS.Game
             //초기화
             currentAmmo = maxAmmo;
             lastTimeShot = Time.time;
+            lastMuzzlePosition = weaponMuzzle.position;
+        }
+
+        private void Update()
+        {
+            //MuzzleWorldVelocity
+            if(Time.deltaTime > 0f)
+            {
+                MuzzleWorldVelocity = (weaponMuzzle.position - lastMuzzlePosition) / Time.deltaTime;
+                lastMuzzlePosition = weaponMuzzle.position;
+            }
         }
 
         //무기 활성화, 비활성화
@@ -148,6 +164,14 @@ namespace Unity.FPS.Game
         //슛 연출
         void HandleShoot()
         {
+            //projectile 생성
+            for (int i = 0; i < bulletsPerShot; i++)
+            {
+                Vector3 shotDirection = GetShotDirectionWithinSpread(weaponMuzzle);
+                ProjectileBase projectileInstance = Instantiate(projectilePrefab, weaponMuzzle.position, Quaternion.LookRotation(shotDirection));
+                projectileInstance.Shoot(this);
+            }
+
             //Vfx
             if (muzzleFlashPrefab)
             {
@@ -163,6 +187,13 @@ namespace Unity.FPS.Game
 
             //슛한 시간 저장
             lastTimeShot = Time.time;
+        }
+
+        //projectile 날아가는 방향
+        Vector3 GetShotDirectionWithinSpread(Transform shootTransform)
+        {
+            float spreadAngleRatio = bulletSpreadAngle / 180f;
+            return Vector3.Lerp(shootTransform.forward, UnityEngine.Random.insideUnitSphere, spreadAngleRatio);
         }
 
     }
