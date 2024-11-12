@@ -39,14 +39,17 @@ namespace Unity.FPS.Gameplay
 
         public AudioClip impactSfxClip;                //타격 효과음
 
-        //
+        //데미지
         public float damage = 20f;
+        private DamageArea damageArea;
         #endregion
 
         private void OnEnable()
         {
             projectileBase = GetComponent<ProjectileBase>();
             projectileBase.OnShoot += OnShoot;
+
+            damageArea = GetComponent<DamageArea>();
 
             Destroy(gameObject, maxLiftTime);
         }
@@ -155,6 +158,20 @@ namespace Unity.FPS.Gameplay
         //Hit 구현: 데미지, Vfx, Sfx,
         void OnHit(Vector3 point, Vector3 normal, Collider collider)
         {
+            //데미지
+            if (damageArea)
+            {
+                damageArea.InflictDamageArea(damage, point, hittableLayers, QueryTriggerInteraction.Collide, projectileBase.Owner);
+            }
+            else
+            {
+                Damageable damageable = collider.GetComponent<Damageable>();
+                if (damageable)
+                {
+                    damageable.InflictDamage(damage, false, projectileBase.Owner);
+                }
+            }
+
 
             //Vfx
             if (impackVfxPrefab)

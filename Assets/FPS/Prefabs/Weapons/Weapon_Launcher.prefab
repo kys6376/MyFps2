@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2225486910712267856}
   - component: {fileID: 7583640433812654122}
   - component: {fileID: 1696918137695873620}
+  - component: {fileID: 6166573567762697095}
   m_Layer: 6
   m_Name: Weapon_Launcher
   m_TagString: Untagged
@@ -147,8 +148,8 @@ MonoBehaviour:
   weaponRoot: {fileID: 5646165488041817916}
   switchWeaponSfx: {fileID: 8300000, guid: 39775a21d1a2c2e499a9454824dc89ff, type: 3}
   shootType: 2
-  maxAmmo: 8
-  delayBetweenShots: 0.5
+  maxAmmo: 4
+  delayBetweenShots: 2
   weaponMuzzle: {fileID: 2749496858225023403}
   muzzleFlashPrefab: {fileID: 748781637555137343, guid: 9f671b22f25370048a18fb1f821294ec,
     type: 3}
@@ -168,6 +169,46 @@ MonoBehaviour:
     type: 3}
   bulletsPerShot: 1
   bulletSpreadAngle: 0
+  ammoUseOnStartCharge: 1
+  ammoUsageRateWhileCharging: 1
+  lastChargeTriggerTimeStamp: 0
+  ammoReloadRate: 1
+  ammoReloadDelay: 2
+  automaticReload: 1
+--- !u!114 &6166573567762697095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2225486910712267859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34cb9b4c3ffb5fd49bec65b6799a5cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargingObject: {fileID: 2990922162098100103}
+  spiningFram: {fileID: 2990922162098100101}
+  distOrbitParticlePrefab: {fileID: 1087039822203223203, guid: b9cf7bff98404174d83a37d58c543aa5,
+    type: 3}
+  scale:
+    Min: {x: 0.01, y: 0.01, z: 0.01}
+    Max: {x: 1, y: 1, z: 1}
+  offset: {x: 0, y: 0, z: 0.764}
+  parentTransform: {fileID: 0}
+  orbitY:
+    Min: 3.1416
+    Max: 12.5664
+  radius:
+    Min: {x: 0.5, y: 0.5, z: 0.5}
+    Max: {x: 1.5, y: 1.5, z: 1.5}
+  spiningSpeed:
+    Min: 50
+    Max: 1500
+  chargeSound: {fileID: 8300000, guid: c8840c292f7fae64b8a2e08f2bfedc78, type: 3}
+  loopChargeWeaponSfx: {fileID: 8300000, guid: 5429607c0e19ab64985dd16f933e76ad, type: 3}
+  useProceduralPitchOnLoop: 0
+  maxProceduralPitchValue: 2
 --- !u!1 &2990922162098100101
 GameObject:
   m_ObjectHideFlags: 0
